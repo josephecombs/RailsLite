@@ -1,0 +1,6 @@
+req.body = [["cat[name]", "mrs lady"], ["cat[owner]", "Sally"]]
+
+full_key = cat[name]
+value = "mrs lady"
+
+key_seq = ["cat", "name"]

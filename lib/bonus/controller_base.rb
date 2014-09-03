@@ -1,8 +1,9 @@
-require_relative '../phase4/controller_base'
+require_relative '../phase6/controller_base'
 require_relative './params'
+require_relative './flash'
 
-module Phase5
-  class ControllerBase < Phase4::ControllerBase
+module Bonus
+  class ControllerBase < Phase6::ControllerBase
     attr_reader :params
 
     # setup the controller

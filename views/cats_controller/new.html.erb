@@ -1,3 +1,5 @@
+<%#= render layouts/errors %>
+<%= flash[:errors].join"<br>" if flash[:errors] %>
 <form action="/cats" method="POST">
   <label>Name
     <input type="text" name="cat[name]" value="<%= @cat.name %>">

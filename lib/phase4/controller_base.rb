@@ -1,5 +1,6 @@
 require_relative '../phase3/controller_base'
 require_relative './session'
+require 'debugger'
 
 module Phase4
   class ControllerBase < Phase3::ControllerBase

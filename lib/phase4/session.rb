@@ -10,7 +10,7 @@ module Phase4
       # session[]
       cookie = req.cookies.find { |c| c.name == "_rails_lite_app"}
       # puts req
-      puts "cookie after find: #{cookie}"
+
       if cookie
         # JSON.parse(cookie)
         #above will not work
