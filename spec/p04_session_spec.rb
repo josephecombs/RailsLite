@@ -1,3 +1,4 @@
+require 'debugger'
 require 'webrick'
 require 'phase4/session'
 require 'phase4/controller_base'
@@ -9,6 +10,7 @@ describe Phase4::Session do
 
   it "deserializes json cookie if one exists" do
     req.cookies << cook
+    debugger
     session = Phase4::Session.new(req)
     session['xyz'].should == 'abc'
   end

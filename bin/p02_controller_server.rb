@@ -18,6 +18,7 @@ end
 
 server = WEBrick::HTTPServer.new(Port: 3000)
 server.mount_proc('/') do |req, res|
+  puts "inside mount_proc"
   MyController.new(req, res).go
 end
 
