@@ -1,6 +1,7 @@
 require 'active_support/core_ext'
 require 'webrick'
 require_relative '../lib/bonus/controller_base'
+require 'debugger'
 
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick.html
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/HTTPRequest.html
@@ -8,7 +9,8 @@ require_relative '../lib/bonus/controller_base'
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/Cookie.html
 
 class Cat
-  attr_reader :name, :owner
+  
+  attr_reader :name, :owner, :validation_errors
 
   def self.all
     @cat ||= []
@@ -16,27 +18,46 @@ class Cat
 
   def initialize(params = {})
     params ||= {}
-    @name, @owner = params["name"], params["owner"]
+    # params["name"].length > 1 ? @name = params["name"] : @name = params["name"] + "_"
+    @name = params["name"]
+    @owner = params["owner"]
+    @validation_errors = []
   end
 
   def save
-    return false unless @name.present? && @owner.present?
-
-    Cat.all << self
-    true
+    if validated?
+      Cat.all << self
+      return true
+    else
+      return false
+    end
   end
 
   def inspect
     { name: name, owner: owner }.inspect
   end
+  
+  def validated?
+    @validation_errors = []
+    @validation_errors << "Name must be present" unless @name.present?
+    @validation_errors << "Owner must be present" unless @owner.present?
+    @validation_errors << "Owner name must be greater than 1 character" unless @owner.length > 1
+    
+    if @validation_errors.count > 0
+      return false
+    else
+      return true
+    end
+  end
 end
 
-class CatsController < Phase5::ControllerBase
+class CatsController < Bonus::ControllerBase
   def create
     @cat = Cat.new(params["cat"])
     if @cat.save
       redirect_to("/cats")
     else
+      flash.now[:errors] = @cat.validation_errors
       render :new
     end
   end

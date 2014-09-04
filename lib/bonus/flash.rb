@@ -3,11 +3,14 @@ require 'debugger'
 
 module Bonus
   class Flash
+    attr_accessor :errors
+    
     def initialize
-      @data = {}
-      
+      @errors = {}
     end
     
-    
+    def now
+      @errors
+    end
   end
 end

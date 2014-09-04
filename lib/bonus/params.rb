@@ -1,7 +1,7 @@
 require 'uri'
 require 'debugger'
 
-module Phase5
+module Bonus
   class Params
     # use your initialize to merge params from
     # 1. query string
